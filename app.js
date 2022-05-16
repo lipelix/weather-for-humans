@@ -4,6 +4,7 @@ import path from 'path'
 import {fileURLToPath} from 'url'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
+import { create } from 'express-handlebars';
 
 import indexRouter from './routes/index.js'
 import weatherRouter from './routes/weather.js'
@@ -13,8 +14,11 @@ const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // view engine setup
+const hbs = create({ /* config */ });
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.enable('view cache');
 
 app.use(logger('dev'));
 app.use(express.json());

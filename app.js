@@ -5,11 +5,12 @@ import {fileURLToPath} from 'url'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import { create } from 'express-handlebars';
+import { CONFIG } from './config.js'
+import 'dotenv/config'
 
 import indexRouter from './routes/index.js'
 import weatherRouter from './routes/weather.js'
 
-const PORT = 3000
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -45,6 +46,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(PORT, () => {
-  console.log(`Example app listening on PORT ${PORT}`)
+app.listen(CONFIG.PORT, () => {
+  console.log(`Example app listening on PORT ${CONFIG.PORT}`)
 })

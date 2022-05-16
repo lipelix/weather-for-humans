@@ -1,1 +1,15 @@
 <h1>What to wear?</h1>
+
+<script>
+  const GET_WEATHER = "{{routeGetWeather}}"
+
+  navigator.geolocation.getCurrentPosition(async (position) => {
+    const url = new URL(`${GET_WEATHER}`)
+    url.search = new URLSearchParams({
+      lat: position.coords.latitude,
+      lon: position.coords.longitude
+    }).toString();
+    const response = await fetch(url);
+    const data = await response.json();
+  });
+</script>

@@ -15,11 +15,10 @@ router.get('/', async function(req, res, next) {
 });
 
 router.get('/by-ip', async function(req, res, next) {
-  const ip = (req.headers['x-forwarded-for'] || '').split(',').pop().trim() || req.socket.remoteAddress
-  const geo = geoip.lookup(ip);
+  const geo = geoip.lookup(req.ip);
 
   if (!geo) {
-    const httpError = new createError.BadRequest(`Ip address not found: ${ip}`)
+    const httpError = new createError.BadRequest(`Ip address not found: ${req.ip}`)
     return next(httpError)
   }
 

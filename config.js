@@ -4,7 +4,8 @@ export const CONFIG = (() => {
 
   return {
     ROUTES: {
-      getWeather: `http://${hostname}/weather`
+      getWeather: `http://${hostname}/weather`,
+      getWeatherByIP: `http://${hostname}/weather/by-ip`
     },
     PORT: PORT
   }

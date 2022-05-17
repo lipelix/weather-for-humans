@@ -2,14 +2,21 @@
 
 <script>
   const GET_WEATHER = "{{routeGetWeather}}"
+  const GET_WEATHER_BY_IP = "{{routeGetWeatherByIP}}"
 
-  navigator.geolocation.getCurrentPosition(async (position) => {
-    const url = new URL(`${GET_WEATHER}`)
-    url.search = new URLSearchParams({
-      lat: position.coords.latitude,
-      lon: position.coords.longitude
-    }).toString();
-    const response = await fetch(url);
-    const data = await response.json();
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      const url = new URL(`${GET_WEATHER}`)
+      url.search = new URLSearchParams({
+        lat: position.coords.latitude,
+        lon: position.coords.longitude
+      }).toString();
+      const response = await fetch(url);
+      const data = await response.json();
+
+  }, async (error) => {
+      const url = new URL(`${GET_WEATHER_BY_IP}`)
+      const response = await fetch(url);
+      const data = await response.json();
   });
 </script>

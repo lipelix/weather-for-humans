@@ -7,7 +7,8 @@ const router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('home', {
     layout: 'main',
-    routeGetWeather: CONFIG.ROUTES.getWeather
+    routeGetWeather: CONFIG.ROUTES.getWeather,
+    routeGetWeatherByIP: CONFIG.ROUTES.getWeatherByIP,
   });
 });
 

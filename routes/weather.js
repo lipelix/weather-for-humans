@@ -5,13 +5,46 @@ import createError from 'http-errors'
 
 const router = express.Router();
 
+const INTRO = {
+  'CZ': 'Je to na '
+}
+
+const CLOTHES = {
+  'CZ': {
+    'T-SHIRT': 'triko 👕',
+    'JACKET': 'bundu 🧥',
+    'LONG-SLEEVE': 'dlouhej rukáv 🥼',
+    'SHORTS': 'kraťasy 🩳',
+    'TROUSERS': 'kalhoty 👖',
+    'GLASSES': 'brejle 🕶',
+  }
+}
+
+const temperatureMapper = (weatherData) => {
+  const feelsLike = weatherData.main.feels_like
+
+  if (feelsLike >= 15) return [CLOTHES['CZ']['T-SHIRT'], CLOTHES['CZ']['SHORTS']]
+  if (feelsLike < 15) return [CLOTHES['CZ']['LONG-SLEEVE'], CLOTHES['CZ']['SHORTS']]
+  if (feelsLike < 10) return [CLOTHES['CZ']['LONG-SLEEVE'], CLOTHES['CZ']['TROUSERS']]
+  if (feelsLike < 5) return [CLOTHES['CZ']['JACKET'], CLOTHES['CZ']['TROUSERS']]
+
+  return []
+}
+
+const finalMapper = (clothes) => {
+  return `${INTRO.CZ}${clothes.join(' a ')}`
+}
+
 /* GET weather listing. */
 router.get('/', async function(req, res, next) {
   const {lat, lon} = req.query
-  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.OPENWEATHER_API_KEY}&lang=cz`);
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${process.env.OPENWEATHER_API_KEY}&lang=cz`);
   const data = await response.json();
 
-  res.json(data);
+  const clothes = temperatureMapper(data)
+  const output = finalMapper(clothes)
+
+  res.json(output);
 });
 
 router.get('/by-ip', async function(req, res, next) {

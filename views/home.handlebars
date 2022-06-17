@@ -1,4 +1,4 @@
-<h1>What to wear?</h1>
+<div id="app"></div>
 
 <script>
   const GET_WEATHER = "{{routeGetWeather}}"
@@ -13,6 +13,8 @@
       }).toString();
       const response = await fetch(url);
       const data = await response.json();
+
+      document.getElementById("app").innerHTML = data
 
   }, async (error) => {
       const url = new URL(`${GET_WEATHER_BY_IP}`)

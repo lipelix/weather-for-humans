@@ -1,4 +1,4 @@
-import { temperatureMapper } from './weather.js';
+import { temperatureMapper, conditionMapper } from './weather.js';
 
 describe('Weather clothes mapper', () => {
 	test('When temperature over 25 degrees, should have BATHING-SUIT', () => {
@@ -65,6 +65,75 @@ describe('Weather clothes mapper', () => {
 
 		//Assert
 		expect(clothes).toEqual(['bundu 🧥', 'rukavice 🧤' , 'šála 🧣']);
+	});
+
+	test('When temperature unknown, should return empty', () => {
+		//Arrange
+		const weatherData = {main: {}};
+
+		//Act
+		const conditions = temperatureMapper(weatherData);
+
+		//Assert
+		expect(conditions).toEqual([]);
+	});
+
+});
+
+describe('Conditions mapper', () => {
+	test('When condition is Clear, should have GLASSES', () => {
+		//Arrange
+		const weatherData = {weather: [ { main: 'Clear' } ]};
+
+		//Act
+		const conditions = conditionMapper(weatherData);
+
+		//Assert
+		expect(conditions).toEqual(['brejle 🕶']);
+	});
+
+	test('When condition is Rain, should have UMBRELLA', () => {
+		//Arrange
+		const weatherData = {weather: [ { main: 'Rain' } ]};
+
+		//Act
+		const conditions = conditionMapper(weatherData);
+
+		//Assert
+		expect(conditions).toEqual(['deštník ☂️']);
+	});
+
+	test('When condition is Drizzle, should have UMBRELLA', () => {
+		//Arrange
+		const weatherData = {weather: [ { main: 'Drizzle' } ]};
+
+		//Act
+		const conditions = conditionMapper(weatherData);
+
+		//Assert
+		expect(conditions).toEqual(['deštník ☂️']);
+	});
+
+	test('When condition is Thunderstorm, should have UMBRELLA', () => {
+		//Arrange
+		const weatherData = {weather: [ { main: 'Thunderstorm' } ]};
+
+		//Act
+		const conditions = conditionMapper(weatherData);
+
+		//Assert
+		expect(conditions).toEqual(['deštník ☂️']);
+	});
+
+	test('When condition is Unknown, should return empty', () => {
+		//Arrange
+		const weatherData = {weather: [ { main: 'Blabl' } ]};
+
+		//Act
+		const conditions = conditionMapper(weatherData);
+
+		//Assert
+		expect(conditions).toEqual([]);
 	});
 
 });

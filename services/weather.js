@@ -12,7 +12,13 @@ const CLOTHES = {
 		'BATHING-SUIT': 'plavky 🩲',
 		'GLOVES': 'rukavice 🧤',
 		'SCARF': 'šála 🧣',
+	}
+};
+
+const ACCESSORIES = {
+	'CZ': {
 		'GLASSES': 'brejle 🕶',
+		'UMBRELLA': 'deštník ☂️',
 	}
 };
 
@@ -29,6 +35,18 @@ export const temperatureMapper = (weatherData) => {
 	return [];
 };
 
+export const conditionMapper = (weatherData) => {
+	const [mainWeather] = weatherData.weather;
+	const {main: condition} = mainWeather;
+
+	if (condition === 'Clear') return [ACCESSORIES['CZ']['GLASSES']];
+	if (condition === 'Rain') return [ACCESSORIES['CZ']['UMBRELLA']];
+	if (condition === 'Drizzle') return [ACCESSORIES['CZ']['UMBRELLA']];
+	if (condition === 'Thunderstorm') return [ACCESSORIES['CZ']['UMBRELLA']];
+
+	return [];
+};
+
 export const weatherMapper = (weatherData) => {
 	const [mainWeather] = weatherData.weather;
 	
@@ -39,9 +57,11 @@ export const weatherMapper = (weatherData) => {
 	};
 };
 
-export const finalMapper = (clothes, weather) => {
+export const finalMapper = (clothes, weather, condition) => {
+	const clothesDescription = [...clothes, ...condition];
+
 	return {
-		clothes: `${INTRO.CZ}${clothes.join(' a ')}`,
+		clothes: `${INTRO.CZ}${clothesDescription.join(' a ')}`,
 		weather: weather
 	};
 };

@@ -2,7 +2,7 @@ import express from 'express';
 import fetch from 'node-fetch';
 import geoip from 'geoip-lite';
 import createError from 'http-errors';
-import { temperatureMapper, weatherMapper } from '../services/weather.js';
+import { temperatureMapper, weatherMapper, conditionMapper } from '../services/weather.js';
 import { finalMapper } from '../services/weather.js';
 
 const router = express.Router();
@@ -15,9 +15,8 @@ router.get('/', async (req, res, next) => {
 
 	const clothes = temperatureMapper(data);
 	const weather = weatherMapper(data);
-	const output = finalMapper(clothes, weather);
-
-	console.log('bujaga: ', data);
+	const conditions = conditionMapper(data);
+	const output = finalMapper(clothes, weather, conditions);
 
 	res.json(output);
 });

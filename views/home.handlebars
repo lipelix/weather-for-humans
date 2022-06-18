@@ -19,6 +19,7 @@
   }, async (error) => {
       const url = new URL(`${GET_WEATHER_BY_IP}`)
       const response = await fetch(url);
+      console.log('bujaga: ', response);
       const data = await response.json();
   });
 </script>

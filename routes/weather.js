@@ -16,6 +16,9 @@ const CLOTHES = {
     'LONG-SLEEVE': 'dlouhej rukáv 🥼',
     'SHORTS': 'kraťasy 🩳',
     'TROUSERS': 'kalhoty 👖',
+    'BATHING-SUIT': 'plavky 🩲',
+    'GLOVES': 'rukavice 🧤',
+    'SCARF': 'šála 🧣',
     'GLASSES': 'brejle 🕶',
   }
 }
@@ -23,10 +26,12 @@ const CLOTHES = {
 const temperatureMapper = (weatherData) => {
   const feelsLike = weatherData.main.feels_like
 
-  if (feelsLike >= 15) return [CLOTHES['CZ']['T-SHIRT'], CLOTHES['CZ']['SHORTS']]
-  if (feelsLike < 15) return [CLOTHES['CZ']['LONG-SLEEVE'], CLOTHES['CZ']['SHORTS']]
-  if (feelsLike < 10) return [CLOTHES['CZ']['LONG-SLEEVE'], CLOTHES['CZ']['TROUSERS']]
-  if (feelsLike < 5) return [CLOTHES['CZ']['JACKET'], CLOTHES['CZ']['TROUSERS']]
+  if (feelsLike > 25) return [CLOTHES['CZ']['BATHING-SUIT']]
+  if (feelsLike > 20) return [CLOTHES['CZ']['T-SHIRT'], CLOTHES['CZ']['SHORTS']]
+  if (feelsLike > 15) return [CLOTHES['CZ']['LONG-SLEEVE'], CLOTHES['CZ']['SHORTS']]
+  if (feelsLike > 10) return [CLOTHES['CZ']['LONG-SLEEVE'], CLOTHES['CZ']['TROUSERS']]
+  if (feelsLike <= 10) return [CLOTHES['CZ']['JACKET'], CLOTHES['CZ']['TROUSERS']]
+  if (feelsLike < 0) return [CLOTHES['CZ']['JACKET'], CLOTHES['CZ']['GLOVES'], CLOTHES['CZ']['SCARF']]
 
   return []
 }

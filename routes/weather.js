@@ -1,44 +1,11 @@
 import express from 'express';
 import fetch from 'node-fetch';
 import geoip from 'geoip-lite';
-import createError from 'http-errors'
+import createError from 'http-errors';
+import { temperatureMapper } from '../services/weather.js';
+import { finalMapper } from '../services/weather.js';
 
 const router = express.Router();
-
-const INTRO = {
-  'CZ': 'Je to na '
-}
-
-const CLOTHES = {
-  'CZ': {
-    'T-SHIRT': 'triko 👕',
-    'JACKET': 'bundu 🧥',
-    'LONG-SLEEVE': 'dlouhej rukáv 🥼',
-    'SHORTS': 'kraťasy 🩳',
-    'TROUSERS': 'kalhoty 👖',
-    'BATHING-SUIT': 'plavky 🩲',
-    'GLOVES': 'rukavice 🧤',
-    'SCARF': 'šála 🧣',
-    'GLASSES': 'brejle 🕶',
-  }
-}
-
-const temperatureMapper = (weatherData) => {
-  const feelsLike = weatherData.main.feels_like
-
-  if (feelsLike > 25) return [CLOTHES['CZ']['BATHING-SUIT']]
-  if (feelsLike > 20) return [CLOTHES['CZ']['T-SHIRT'], CLOTHES['CZ']['SHORTS']]
-  if (feelsLike > 15) return [CLOTHES['CZ']['LONG-SLEEVE'], CLOTHES['CZ']['SHORTS']]
-  if (feelsLike > 10) return [CLOTHES['CZ']['LONG-SLEEVE'], CLOTHES['CZ']['TROUSERS']]
-  if (feelsLike <= 10) return [CLOTHES['CZ']['JACKET'], CLOTHES['CZ']['TROUSERS']]
-  if (feelsLike < 0) return [CLOTHES['CZ']['JACKET'], CLOTHES['CZ']['GLOVES'], CLOTHES['CZ']['SCARF']]
-
-  return []
-}
-
-const finalMapper = (clothes) => {
-  return `${INTRO.CZ}${clothes.join(' a ')}`
-}
 
 /* GET weather listing. */
 router.get('/', async function(req, res, next) {

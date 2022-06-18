@@ -4,9 +4,19 @@
   "type": "module",
   "scripts": {
     "start": "node ./app.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
     "dev": "NODE_ENV=development node ./app.js"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": ["./services/**", "./routes/**"],
+    "coverageThreshold": {
+      "global": {
+        "lines": 90
+      }
+    }
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -20,7 +30,10 @@
     "node-fetch": "^3.2.4"
   },
   "devDependencies": {
+    "@types/jest": "^28.1.2",
     "eslint": "^8.18.0",
-    "eslint-plugin-unused-imports": "^2.0.0"
+    "eslint-plugin-jest": "^26.5.3",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "jest": "^28.1.1"
   }
 }

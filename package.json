@@ -20,6 +20,7 @@
     "node-fetch": "^3.2.4"
   },
   "devDependencies": {
-    "eslint": "^8.18.0"
+    "eslint": "^8.18.0",
+    "eslint-plugin-unused-imports": "^2.0.0"
   }
 }

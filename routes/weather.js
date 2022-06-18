@@ -8,7 +8,7 @@ import { finalMapper } from '../services/weather.js';
 const router = express.Router();
 
 /* GET weather listing. */
-router.get('/', async function(req, res, next) {
+router.get('/', async (req, res, next) => {
 	const {lat, lon} = req.query;
 	const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${process.env.OPENWEATHER_API_KEY}&lang=cz`);
 	const data = await response.json();
@@ -19,7 +19,7 @@ router.get('/', async function(req, res, next) {
 	res.json(output);
 });
 
-router.get('/by-ip', async function(req, res, next) {
+router.get('/by-ip', async (req, res, next) => {
 	const geo = geoip.lookup(req.ip);
 
 	if (!geo) {

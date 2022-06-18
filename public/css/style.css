@@ -1,0 +1,13 @@
+body {
+  padding: 50px;
+  font: 2em Georgia, "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.output-wrapper {
+  display: flex;
+  justify-content: center;  
+}

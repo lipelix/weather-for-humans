@@ -4,6 +4,8 @@
   "type": "module",
   "scripts": {
     "start": "node ./app.js",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint . --fix",
     "dev": "NODE_ENV=development node ./app.js"
   },
   "dependencies": {
@@ -16,5 +18,8 @@
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "node-fetch": "^3.2.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.18.0"
   }
 }

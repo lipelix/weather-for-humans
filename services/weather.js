@@ -23,7 +23,7 @@ export const temperatureMapper = (weatherData) => {
 	if (feelsLike > 20) return [CLOTHES['CZ']['T-SHIRT'], CLOTHES['CZ']['SHORTS']];
 	if (feelsLike > 15) return [CLOTHES['CZ']['LONG-SLEEVE'], CLOTHES['CZ']['SHORTS']];
 	if (feelsLike > 10) return [CLOTHES['CZ']['LONG-SLEEVE'], CLOTHES['CZ']['TROUSERS']];
-	if (feelsLike <= 10) return [CLOTHES['CZ']['JACKET'], CLOTHES['CZ']['TROUSERS']];
+	if (feelsLike >= 0) return [CLOTHES['CZ']['JACKET'], CLOTHES['CZ']['TROUSERS']];
 	if (feelsLike < 0) return [CLOTHES['CZ']['JACKET'], CLOTHES['CZ']['GLOVES'], CLOTHES['CZ']['SCARF']];
 
 	return [];

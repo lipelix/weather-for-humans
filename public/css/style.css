@@ -11,3 +11,19 @@ a {
   display: flex;
   justify-content: center;  
 }
+
+#weather-icon {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+}
+
+.weather-description-wrapper {
+  display: flex;
+  justify-content: center;
+  font-size: 12px;
+  line-height: 40px;
+  text-align: center;
+  border-top: 1px solid;
+  margin-top: 30px;
+}

@@ -1,6 +1,19 @@
 <div class="output-wrapper">
-  <div id="output" />
+  <div id="output"></div>
 </div>
+
+<table class="weather-description-wrapper">
+  <tbody>
+    <tr>
+      <td><div id="weather-icon"></div></td>
+      <td><span id="weather-description"></span></td>
+    </tr>
+    <tr>
+      <td>🌡</td>
+      <td><div id="weather-temperature"></div></td>
+    </tr>
+  </tbody>
+</table>
 
 
 <script>
@@ -17,7 +30,15 @@
       const response = await fetch(url);
       const data = await response.json();
 
-      document.getElementById("output").innerHTML = data
+      console.log('bujaga: data', data);
+
+      document.getElementById("output").innerHTML = data.clothes
+      document.getElementById("weather-description").innerHTML = data.weather.description
+
+      const wi = document.getElementById("weather-icon")
+      wi.style.backgroundImage=`url('${data.weather.icon}')`
+
+      document.getElementById("weather-temperature").innerHTML = data.weather.temperature
 
   }, async (error) => {
       const url = new URL(`${GET_WEATHER_BY_IP}`)

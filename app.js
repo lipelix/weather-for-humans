@@ -19,7 +19,6 @@ const hbs = create({ /* config */ });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
-app.enable('view cache');
 
 app.use(logger('dev'));
 app.use(express.json());

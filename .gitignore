@@ -1,3 +1,5 @@
 node_modules
 .env
 coverage
+env.auto.tfvars
+.terraform

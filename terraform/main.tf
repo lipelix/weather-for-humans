@@ -4,7 +4,7 @@ terraform {
     organization = "lipelix"
 
     workspaces {
-      name = "weather-for-humans"
+      name = "pocasi-pro-lidi"
     }
   }
   required_providers {

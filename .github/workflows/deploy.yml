@@ -87,6 +87,15 @@ jobs:
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
+    # Since Terraform cloud does not support run variables at this time.
+    # Currently the only to way to pass variables is by creating a `*.auto.tfvars` variables file.
+    - name: Setup Terraform variables
+      id: vars
+      run: |-
+        cat > pipeline.auto.tfvars <<EOF
+        openweather_api_key="${{ secrets.OPENWEATHER_API_KEY }}"
+        EOF
+
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: terraform init
@@ -122,6 +131,15 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+    # Since Terraform cloud does not support run variables at this time.
+    # Currently the only to way to pass variables is by creating a `*.auto.tfvars` variables file.
+    - name: Setup Terraform variables
+      id: vars
+      run: |-
+        cat > pipeline.auto.tfvars <<EOF
+        openweather_api_key="${{ secrets.OPENWEATHER_API_KEY }}"
+        EOF
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init

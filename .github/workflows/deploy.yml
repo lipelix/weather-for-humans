@@ -42,19 +42,33 @@
 #       with:
 #         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-name: 'Terraform'
+name: 'Release & deploy'
 
 on:
   push:
     branches:
-    - "master"
+    - 'master'
   pull_request:
 
 permissions:
   contents: read
 
 jobs:
-  terraform:
+  release:
+    name: 'Release'
+    runs-on: 'ubuntu-latest'
+
+    # This will create release on every push to master branch tagged with 'latest' tag
+    steps:
+      - uses: 'marvinpinto/action-automatic-releases@latest'
+        # if: github.ref == 'refs/heads/master'
+        with:
+          repo_token: '${{ secrets.GITHUB_TOKEN }}'
+          automatic_release_tag: 'latest'
+          prerelease: false
+          title: 'Latest Build'
+
+  deploy:
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production
@@ -91,5 +105,6 @@ jobs:
       # On push to "master", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
+      need: 'release'
       if: github.ref == 'refs/heads/master'
       run: terraform apply -auto-approve -input=false

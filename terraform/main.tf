@@ -37,7 +37,7 @@ resource "heroku_app_config_association" "this" {
 # Build code & release to the app
 resource "heroku_build" "this" {
   app_id     = heroku_app.this.id
-  buildpacks = ["heroku/nodejs"]
+  buildpacks = ["https://github.com/heroku/heroku-buildpack-nodejs#latest"]
 
   source {
     url     = "https://github.com/lipelix/weather-for-humans/archive/refs/tags/latest.tar.gz"

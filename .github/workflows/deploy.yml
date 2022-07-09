@@ -125,6 +125,7 @@ jobs:
         working-directory: terraform
         shell: bash
 
+    steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3

@@ -20,6 +20,10 @@ provider "heroku" {
   api_key = var.heroku_api_key
 }
 
+locals {
+  github_release = "https://github.com/lipelix/weather-for-humans/archive/refs/tags/latest.tar.gz"
+}
+
 resource "heroku_app" "this" {
   name   = "pocasi-pro-lidi"
   region = "eu"
@@ -40,8 +44,7 @@ resource "heroku_build" "this" {
   buildpacks = ["https://github.com/heroku/heroku-buildpack-nodejs#latest"]
 
   source {
-    url     = "https://github.com/lipelix/weather-for-humans/archive/refs/tags/latest.tar.gz"
-    version = "latest"
+    url = local.github_release
   }
 }
 

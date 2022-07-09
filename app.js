@@ -1,5 +1,7 @@
 import createError from 'http-errors';
 import express from 'express';
+import https from 'https';
+import fs from 'fs';
 import path from 'path';
 import {fileURLToPath} from 'url';
 import cookieParser from 'cookie-parser';
@@ -12,6 +14,14 @@ import indexRouter from './routes/index.js';
 import weatherRouter from './routes/weather.js';
 
 const app = express();
+
+if (process.env.NODE_ENV === 'development') {
+	const key = fs.readFileSync('./key.pem');
+	const cert = fs.readFileSync('./cert.pem');
+	const server = https.createServer({key: key, cert: cert }, app);
+	server.listen(CONFIG.PORT_HTTPS, () => { console.log(`app listening on https ${CONFIG.HOSTNAME}`); });
+}
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // view engine setup
@@ -46,5 +56,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(CONFIG.PORT, () => {
-	console.log(`Example app listening on PORT ${CONFIG.PORT}`);
+	console.log(`app listening on http ${CONFIG.HOSTNAME}`);
 });

@@ -81,6 +81,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    # Setup env variables
+    # - name: Set env
+    #   run: echo "LATEST_RELEASE_SHA256=$(curl -s https://github.com/lipelix/weather-for-humans/archive/refs/tags/latest.tar.gz | openssl sha256)" >> $GITHUB_ENV
+
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
@@ -93,8 +97,9 @@ jobs:
       id: vars
       run: |-
         cat > pipeline.auto.tfvars <<EOF
-        openweather_api_key = "${{ secrets.OPENWEATHER_API_KEY }}"
+        openweather_api_key   = "${{ secrets.OPENWEATHER_API_KEY }}"
         EOF
+        cat pipeline.auto.tfvars
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
@@ -102,7 +107,7 @@ jobs:
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
-      run: terraform fmt -check
+      run: terraform fmt -check -diff
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
@@ -138,7 +143,7 @@ jobs:
       id: vars
       run: |-
         cat > pipeline.auto.tfvars <<EOF
-        openweather_api_key = "${{ secrets.OPENWEATHER_API_KEY }}"
+        openweather_api_key   = "${{ secrets.OPENWEATHER_API_KEY }}"
         EOF
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.

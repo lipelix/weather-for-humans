@@ -97,7 +97,7 @@ jobs:
       id: vars
       run: |-
         cat > pipeline.auto.tfvars <<EOF
-        openweather_api_key   = "${{ secrets.OPENWEATHER_API_KEY }}"
+        openweather_api_key = "${{ secrets.OPENWEATHER_API_KEY }}"
         EOF
         cat pipeline.auto.tfvars
 
@@ -143,7 +143,7 @@ jobs:
       id: vars
       run: |-
         cat > pipeline.auto.tfvars <<EOF
-        openweather_api_key   = "${{ secrets.OPENWEATHER_API_KEY }}"
+        openweather_api_key = "${{ secrets.OPENWEATHER_API_KEY }}"
         EOF
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.

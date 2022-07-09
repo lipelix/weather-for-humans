@@ -65,6 +65,10 @@ jobs:
           prerelease: false
           title: 'Latest Build'
 
+      - name: Sleep for 20 seconds
+        run: sleep 20s
+        shell: bash
+
   terraform-plan:
     name: 'Terraform plan'
     runs-on: ubuntu-latest
@@ -121,7 +125,6 @@ jobs:
         working-directory: terraform
         shell: bash
 
-    steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3

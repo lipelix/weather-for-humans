@@ -46,7 +46,7 @@ resource "heroku_build" "this" {
   source {
     url      = local.github_release
     version  = "latest"
-    checksum = data.local_file.this.content
+    checksum = var.latest_release_sha256
   }
 }
 
@@ -57,28 +57,6 @@ resource "heroku_formation" "this" {
   quantity   = 1
   size       = "free"
   depends_on = [heroku_build.this]
-}
-
-resource "null_resource" "this" {
-  triggers = {
-    "always_run" = "timestamp()"
-  }
-
-  provisioner "local-exec" {
-    command = <<EOT
-      echo 'SHA256:' >> ${path.module}/latest_release_sha256.txt
-      curl ${local.github_release} | openssl sha256 >> ${path.module}/latest_release_sha256.txt
-    EOT
-  }
-}
-
-data "local_file" "this" {
-  filename   = "${path.module}/latest_release_sha256.txt"
-  depends_on = [null_resource.this]
-}
-
-output "latest_release_sha256" {
-  value = data.local_file.this.content
 }
 
 output "app_url" {

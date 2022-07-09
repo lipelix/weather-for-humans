@@ -1,12 +1,16 @@
 export const CONFIG = (() => {
 	const PORT = process.env.PORT || 3000;
-	const hostname = process.env.NODE_ENV === 'development' ? `localhost:${PORT}` : process.env.HOSTNAME;
+	const PORT_HTTPS = 3001;
+
+	const hostname = process.env.NODE_ENV === 'development' ? `localhost:${PORT_HTTPS}` : process.env.HOSTNAME;
 
 	return {
+		HOSTNAME: hostname,
 		ROUTES: {
-			getWeather: `http://${hostname}/weather`,
-			getWeatherByIP: `http://${hostname}/weather/by-ip`
+			getWeather: `https://${hostname}/weather`,
+			getWeatherByIP: `https://${hostname}/weather/by-ip`
 		},
-		PORT: PORT
+		PORT: PORT,
+		PORT_HTTPS: PORT_HTTPS,
 	};
 })();

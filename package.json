@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "start": "node ./app.js",
+    "start": "NODE_ENV=production node ./app.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",

@@ -65,7 +65,10 @@ resource "null_resource" "this" {
   }
 
   provisioner "local-exec" {
-    command = "curl ${local.github_release} | openssl sha256 | awk \"{print 'SHA256:'$1}\" >> ${path.module}/latest_release_sha256.txt"
+    command = <<EOT
+      echo 'SHA256:' >> ${path.module}/latest_release_sha256.txt
+      curl ${local.github_release} | openssl sha256 >> ${path.module}/latest_release_sha256.txt
+    EOT
   }
 }
 

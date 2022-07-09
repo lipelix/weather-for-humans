@@ -20,6 +20,10 @@ provider "heroku" {
   api_key = var.heroku_api_key
 }
 
+locals {
+  github_release = "https://github.com/lipelix/weather-for-humans/archive/refs/tags/latest.tar.gz"
+}
+
 resource "heroku_app" "this" {
   name   = "pocasi-pro-lidi"
   region = "eu"
@@ -40,8 +44,9 @@ resource "heroku_build" "this" {
   buildpacks = ["https://github.com/heroku/heroku-buildpack-nodejs#latest"]
 
   source {
-    url     = "https://github.com/lipelix/weather-for-humans/archive/refs/tags/latest.tar.gz"
-    version = "latest"
+    url      = local.github_release
+    version  = "latest"
+    checksum = data.local_file.this.content
   }
 }
 
@@ -52,6 +57,25 @@ resource "heroku_formation" "this" {
   quantity   = 1
   size       = "free"
   depends_on = [heroku_build.this]
+}
+
+resource "null_resource" "this" {
+  triggers = {
+    "always_run" = "timestamp()"
+  }
+
+  provisioner "local-exec" {
+    command = "curl ${local.github_release} | openssl sha256 >> ${path.module}/latest_release_sha256.txt"
+  }
+}
+
+data "local_file" "this" {
+  filename   = "${path.module}/latest_release_sha256.txt"
+  depends_on = [null_resource.this]
+}
+
+output "latest_release_sha256" {
+  value = data.local_file.this.content
 }
 
 output "app_url" {

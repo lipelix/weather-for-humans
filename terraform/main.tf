@@ -32,7 +32,9 @@ resource "heroku_app" "this" {
 resource "heroku_app_config_association" "this" {
   app_id = heroku_app.this.id
 
-  vars = {}
+  vars = {
+    HOSTNAME = "pocasi-pro-lidi.herokuapp.com"
+  }
   sensitive_vars = {
     OPENWEATHER_API_KEY = var.openweather_api_key
   }

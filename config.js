@@ -4,6 +4,11 @@ export const CONFIG = (() => {
 
 	const hostname = process.env.NODE_ENV === 'development' ? `localhost:${PORT_HTTPS}` : process.env.HOSTNAME;
 
+	console.log('env: ', {
+		PORT,
+		HOSTNAME: process.env.HOSTNAME
+	});
+
 	return {
 		HOSTNAME: hostname,
 		ROUTES: {

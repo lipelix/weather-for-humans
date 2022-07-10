@@ -38,7 +38,12 @@ router.get('/by-ip', async (req, res, next) => {
 	const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.OPENWEATHER_API_KEY}&lang=cz`);
 	const data = await response.json();
 
-	res.json(data);
+	const clothes = temperatureMapper(data);
+	const weather = weatherMapper(data);
+	const conditions = conditionMapper(data);
+	const output = finalMapper(clothes, weather, conditions);
+
+	res.json(output);
 });
 
 export default router;

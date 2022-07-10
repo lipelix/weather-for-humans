@@ -35,7 +35,7 @@ router.get('/by-ip', async (req, res, next) => {
 	}
 
 	const [lat, lon] = geo.ll;
-	const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.OPENWEATHER_API_KEY}&lang=cz`);
+	const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${process.env.OPENWEATHER_API_KEY}&lang=cz`);
 	const data = await response.json();
 
 	const clothes = temperatureMapper(data);

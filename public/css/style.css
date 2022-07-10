@@ -1,7 +1,15 @@
+html, 
+body {
+    height: 100%;
+}
+
 body {
   padding: 50px;
-  font: 2em Georgia, "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 60px Georgia, "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: floralwhite;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
 }
 
 a {
@@ -10,7 +18,14 @@ a {
 
 .output-wrapper {
   display: flex;
-  justify-content: center;  
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#intro {
+  padding-bottom: 40px;
+  color: darkgrey;
 }
 
 #weather-icon {
@@ -22,8 +37,8 @@ a {
 .weather-description-wrapper {
   display: flex;
   justify-content: center;
-  font-size: 12px;
-  line-height: 40px;
+  font-size: 32px;
+  line-height: 64px;
   text-align: center;
   border-top: 1px solid;
   margin-top: 30px;

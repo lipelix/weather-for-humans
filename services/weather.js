@@ -1,5 +1,5 @@
 const INTRO = {
-	'CZ': 'Je to na '
+	'CZ': 'Dneska je to na:'
 };
 
 const CLOTHES = {
@@ -58,10 +58,9 @@ export const weatherMapper = (weatherData) => {
 };
 
 export const finalMapper = (clothes, weather, condition) => {
-	const clothesDescription = [...clothes, ...condition];
 
 	return {
-		clothes: `${INTRO.CZ}${clothesDescription.join(' a ')}`,
+		clothes: [INTRO.CZ, ...clothes, ...condition],
 		weather: weather
 	};
 };

@@ -1,19 +1,22 @@
-<div class="output-wrapper">
-  <div id="output"></div>
-</div>
+<div class="home-wrapper">
+  <div class="output-wrapper">
+    <div id="intro"></div>
 
-<table class="weather-description-wrapper">
-  <tbody>
-    <tr>
-      <td><div id="weather-icon"></div></td>
-      <td><span id="weather-description"></span></td>
-    </tr>
-    <tr>
-      <td>🌡</td>
-      <td><div id="weather-temperature"></div></td>
-    </tr>
-  </tbody>
-</table>
+  </div>
+
+  <table class="weather-description-wrapper">
+    <tbody>
+      <tr>
+        <td><div id="weather-icon"></div></td>
+        <td><span id="weather-description"></span></td>
+      </tr>
+      <tr>
+        <td>🌡</td>
+        <td><div id="weather-temperature"></div></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 
 <script>
@@ -30,7 +33,16 @@
       const response = await fetch(url);
       const data = await response.json();
 
-      document.getElementById("output").innerHTML = data.clothes
+      const [intro] = data.clothes
+      document.getElementById("intro").innerHTML = intro
+
+      data.clothes.forEach((description, index) => { 
+        if (index === 0) return
+        const newDiv = document.createElement("div")
+        newDiv.innerHTML = description        
+        document.getElementById("intro").parentNode.insertBefore(newDiv, document.getElementById("intro").nextSibling);
+      })
+
       document.getElementById("weather-description").innerHTML = data.weather.description
 
       const wi = document.getElementById("weather-icon")

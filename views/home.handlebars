@@ -23,6 +23,25 @@
   const GET_WEATHER = "{{routeGetWeather}}"
   const GET_WEATHER_BY_IP = "{{routeGetWeatherByIP}}"
 
+  const renderHtml = (data) => {
+    const [intro] = data.clothes
+    document.getElementById("intro").innerHTML = intro
+
+    data.clothes.forEach((description, index) => { 
+      if (index === 0) return
+      const newDiv = document.createElement("div")
+      newDiv.innerHTML = description        
+      document.getElementById("intro").parentNode.insertBefore(newDiv, document.getElementById("intro").nextSibling);
+    })
+
+    document.getElementById("weather-description").innerHTML = data.weather.description
+
+    const wi = document.getElementById("weather-icon")
+    wi.style.backgroundImage=`url('${data.weather.icon}')`
+
+    document.getElementById("weather-temperature").innerHTML = data.weather.temperature    
+  }
+
   navigator.geolocation.getCurrentPosition(
     async (position) => {
       const url = new URL(`${GET_WEATHER}`)
@@ -32,27 +51,12 @@
       }).toString();
       const response = await fetch(url);
       const data = await response.json();
-
-      const [intro] = data.clothes
-      document.getElementById("intro").innerHTML = intro
-
-      data.clothes.forEach((description, index) => { 
-        if (index === 0) return
-        const newDiv = document.createElement("div")
-        newDiv.innerHTML = description        
-        document.getElementById("intro").parentNode.insertBefore(newDiv, document.getElementById("intro").nextSibling);
-      })
-
-      document.getElementById("weather-description").innerHTML = data.weather.description
-
-      const wi = document.getElementById("weather-icon")
-      wi.style.backgroundImage=`url('${data.weather.icon}')`
-
-      document.getElementById("weather-temperature").innerHTML = data.weather.temperature
+      renderHtml(data)
 
   }, async (error) => {
       const url = new URL(`${GET_WEATHER_BY_IP}`)
       const response = await fetch(url);
       const data = await response.json();
+      renderHtml(data)
   });
 </script>

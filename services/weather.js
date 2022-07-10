@@ -51,7 +51,7 @@ export const weatherMapper = (weatherData) => {
 	const [mainWeather] = weatherData.weather;
 	
 	return {
-		icon: `http://openweathermap.org/img/wn/${mainWeather.icon}@2x.png`,
+		icon: `https://openweathermap.org/img/wn/${mainWeather.icon}@2x.png`,
 		description: mainWeather.description,
 		temperature: `${Math.round(weatherData.main.temp)} °C`
 	};

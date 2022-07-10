@@ -22,11 +22,16 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/by-ip', async (req, res, next) => {
-	const geo = geoip.lookup(req.ip);
+	let geo = geoip.lookup(req.ip);
 
 	if (!geo) {
-		const httpError = new createError.BadRequest(`Ip address not found: ${req.ip}`);
-		return next(httpError);
+		const forwardedIp = Array.isArray(req.headers['x-forwarded-for']) ? req.headers['x-forwarded-for'][0] : req.headers['x-forwarded-for'];
+		geo = geoip.lookup(forwardedIp || '');
+
+		if (!geo) {
+			const httpError = new createError.BadRequest(`Ip address not found: ${req.ip}`);
+			return next(httpError);
+		}
 	}
 
 	const [lat, lon] = geo.ll;

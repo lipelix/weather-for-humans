@@ -1,5 +1,5 @@
 const INTRO = {
-	'CZ': 'Dneska je to na:'
+	'CZ': 'Venku je to na:'
 };
 
 const CLOTHES = {

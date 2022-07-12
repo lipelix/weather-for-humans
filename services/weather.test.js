@@ -83,7 +83,7 @@ describe('Weather clothes mapper', () => {
 describe('Conditions mapper', () => {
 	test('When condition is Clear, should have GLASSES', () => {
 		//Arrange
-		const weatherData = {weather: [ { main: 'Clear' } ]};
+		const weatherData = {weather: [ { main: 'Clear' } ], dt: 1657645090, sys: { sunset: 1657653136 }};
 
 		//Act
 		const conditions = conditionMapper(weatherData);
@@ -94,7 +94,7 @@ describe('Conditions mapper', () => {
 
 	test('When condition is Rain, should have UMBRELLA', () => {
 		//Arrange
-		const weatherData = {weather: [ { main: 'Rain' } ]};
+		const weatherData = {weather: [ { main: 'Rain' } ], dt: 1657645090, sys: { sunset: 1657653136 }};
 
 		//Act
 		const conditions = conditionMapper(weatherData);
@@ -105,7 +105,7 @@ describe('Conditions mapper', () => {
 
 	test('When condition is Drizzle, should have UMBRELLA', () => {
 		//Arrange
-		const weatherData = {weather: [ { main: 'Drizzle' } ]};
+		const weatherData = {weather: [ { main: 'Drizzle' } ], dt: 1657645090, sys: { sunset: 1657653136 }};
 
 		//Act
 		const conditions = conditionMapper(weatherData);
@@ -116,7 +116,7 @@ describe('Conditions mapper', () => {
 
 	test('When condition is Thunderstorm, should have UMBRELLA', () => {
 		//Arrange
-		const weatherData = {weather: [ { main: 'Thunderstorm' } ]};
+		const weatherData = {weather: [ { main: 'Thunderstorm' } ], dt: 1657645090, sys: { sunset: 1657653136 }};
 
 		//Act
 		const conditions = conditionMapper(weatherData);
@@ -125,9 +125,20 @@ describe('Conditions mapper', () => {
 		expect(conditions).toEqual(['deštník ☂️']);
 	});
 
+	test('When over sunset, no glasses', () => {
+		//Arrange
+		const weatherData = {weather: [ { main: 'Clouds' } ], dt: 1657659534, sys: { sunset: 1657653136 }};
+
+		//Act
+		const conditions = conditionMapper(weatherData);
+
+		//Assert
+		expect(conditions).toEqual([]);
+	});
+
 	test('When condition is Unknown, should return empty', () => {
 		//Arrange
-		const weatherData = {weather: [ { main: 'Blabl' } ]};
+		const weatherData = {weather: [ { main: 'Blabl' } ], dt: 1657645090, sys: { sunset: 1657653136 }};
 
 		//Act
 		const conditions = conditionMapper(weatherData);

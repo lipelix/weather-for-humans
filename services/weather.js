@@ -38,8 +38,9 @@ export const temperatureMapper = (weatherData) => {
 export const conditionMapper = (weatherData) => {
 	const [mainWeather] = weatherData.weather;
 	const {main: condition} = mainWeather;
+	const isDay = (weatherData.sys.sunset - weatherData.dt) > 0;
 
-	if (condition === 'Clear') return [ACCESSORIES['CZ']['GLASSES']];
+	if (condition === 'Clear' && isDay) return [ACCESSORIES['CZ']['GLASSES']];
 	if (condition === 'Rain') return [ACCESSORIES['CZ']['UMBRELLA']];
 	if (condition === 'Drizzle') return [ACCESSORIES['CZ']['UMBRELLA']];
 	if (condition === 'Thunderstorm') return [ACCESSORIES['CZ']['UMBRELLA']];

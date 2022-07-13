@@ -40,6 +40,12 @@ resource "heroku_app_config_association" "this" {
   }
 }
 
+# Associate a custom domain
+resource "heroku_domain" "this" {
+  app_id   = heroku_app.this.id
+  hostname = "pocasi-pro-lidi.cz"
+}
+
 # Build code & release to the app
 resource "heroku_build" "this" {
   app_id     = heroku_app.this.id

@@ -25,7 +25,7 @@ router.get('/by-ip', async (req, res, next) => {
 	let geo = geoip.lookup(req.ip);
 
 	if (!geo) {
-		const forwardedIp = Array.isArray(req.headers['x-forwarded-for']) ? req.headers['x-forwarded-for'][0] : req.headers['x-forwarded-for'];
+		const forwardedIp = Array.isArray(req.headers['cf-connecting-ip']) ? req.headers['cf-connecting-ip'][0] : req.headers['cf-connecting-ip'];
 		geo = geoip.lookup(forwardedIp || '');
 
 		if (!geo) {

@@ -4,3 +4,4 @@ coverage
 env.auto.tfvars
 .terraform
 *.pem
+old_dns_setup.json

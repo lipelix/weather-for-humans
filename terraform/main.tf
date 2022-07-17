@@ -12,7 +12,27 @@ terraform {
       source  = "heroku/heroku"
       version = "5.0.2"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "3.19.0"
+    }
   }
+}
+
+provider "cloudflare" {
+  api_token = var.cloudflare_api_token
+}
+
+resource "cloudflare_zone" "this" {
+  zone = "pocasi-pro-lidi.cz"
+}
+
+resource "cloudflare_record" "this" {
+  zone_id = cloudflare_zone.this.id
+  name    = "@"
+  value   = "functional-corythosaurus-3t4m949y7eevrxu8fjey73m2.herokudns.com"
+  type    = "CNAME"
+  proxied = true
 }
 
 provider "heroku" {
@@ -33,7 +53,7 @@ resource "heroku_app_config_association" "this" {
   app_id = heroku_app.this.id
 
   vars = {
-    HOSTNAME = "pocasi-pro-lidi.herokuapp.com"
+    HOSTNAME = "pocasi-pro-lidi.cz"
   }
   sensitive_vars = {
     OPENWEATHER_API_KEY = var.openweather_api_key

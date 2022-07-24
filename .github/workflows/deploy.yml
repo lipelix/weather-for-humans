@@ -51,9 +51,31 @@ on:
   pull_request:
 
 jobs:
+  linter:
+    name: 'Linter'
+    runs-on: 'ubuntu-latest'
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          eslint: true
+          continue_on_error: false
+
   release:
     name: 'Release'
     if: github.ref == 'refs/heads/master'
+    needs: ['linter']
     runs-on: 'ubuntu-latest'
 
     # This will create release on every push to master branch tagged with 'latest' tag

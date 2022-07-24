@@ -83,7 +83,18 @@ describe('Weather clothes mapper', () => {
 describe('Conditions mapper', () => {
 	test('When condition is Clear, should have GLASSES', () => {
 		//Arrange
-		const weatherData = {weather: [ { main: 'Clear' } ], dt: 1657645090, sys: { sunset: 1657653136 }};
+		const weatherData = {weather: [ { main: 'Clear', id: 800 } ], dt: 1657645090, sys: { sunset: 1657653136 }};
+
+		//Act
+		const conditions = conditionMapper(weatherData);
+
+		//Assert
+		expect(conditions).toEqual(['brejle 🕶']);
+	});
+
+	test('When condition is few clouds, should have GLASSES', () => {
+		//Arrange
+		const weatherData = {weather: [ { main: 'Clouds', id: 801 } ], dt: 1657645090, sys: { sunset: 1657653136 }};
 
 		//Act
 		const conditions = conditionMapper(weatherData);

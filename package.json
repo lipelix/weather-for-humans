@@ -11,7 +11,10 @@
   },
   "jest": {
     "collectCoverage": true,
-    "collectCoverageFrom": ["./services/**", "./routes/**"],
+    "collectCoverageFrom": [
+      "./services/**",
+      "./routes/**"
+    ],
     "coverageThreshold": {
       "global": {
         "lines": 90
@@ -31,8 +34,12 @@
   },
   "devDependencies": {
     "@types/jest": "^28.1.2",
-    "eslint": "^8.18.0",
+    "eslint": "^8.20.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.5.3",
+    "eslint-plugin-n": "^15.2.4",
+    "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "jest": "^28.1.1"
   }

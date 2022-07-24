@@ -37,10 +37,12 @@ export const temperatureMapper = (weatherData) => {
 
 export const conditionMapper = (weatherData) => {
 	const [mainWeather] = weatherData.weather;
-	const {main: condition} = mainWeather;
+	const {main: condition, id} = mainWeather;
 	const isDay = (weatherData.sys.sunset - weatherData.dt) > 0;
 
+	// check codes in https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
 	if (condition === 'Clear' && isDay) return [ACCESSORIES['CZ']['GLASSES']];
+	if (condition === 'Clouds' && isDay && id === 801) return [ACCESSORIES['CZ']['GLASSES']];
 	if (condition === 'Rain') return [ACCESSORIES['CZ']['UMBRELLA']];
 	if (condition === 'Drizzle') return [ACCESSORIES['CZ']['UMBRELLA']];
 	if (condition === 'Thunderstorm') return [ACCESSORIES['CZ']['UMBRELLA']];

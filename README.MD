@@ -116,7 +116,7 @@ Project Link: [https://github.com/lipelix/weather-for-humans](https://github.com
 Usefull links and another things worth to mention.
 
 * [OpenWeatherMap](https://openweathermap.org/api)
-* [HTTP nodejs locally](https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTPS-server/)
+* [HTTPS Node.js locally](https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTPS-server/)
 * [Readme template](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#top">back to top</a>)</p>

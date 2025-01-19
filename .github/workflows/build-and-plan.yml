@@ -1,0 +1,51 @@
+name: "Build and Plan"
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+
+jobs:
+  build-and-plan:
+    name: "Build and Plan"
+    runs-on: ubuntu-latest
+    environment: development
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      # Since Terraform cloud does not support run variables at this time.
+      # Currently the only to way to pass variables is by creating a `*.auto.tfvars` variables file.
+      - name: Setup Terraform variables
+        working-directory: infrastructure
+        id: vars
+        run: |-
+          cat > pipeline.auto.tfvars <<EOF
+          cloudflare_api_token = "${{ secrets.CLOUDFLARE_API_TOKEN }}"
+          openweather_api_key  = "${{ secrets.OPENWEATHER_API_KEY }}"
+          EOF
+          cat pipeline.auto.tfvars
+
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init
+        working-directory: infrastructure
+        run: terraform init
+
+      # Generates an execution plan for Terraform
+      - name: Dry-run deploy workers and cloudflare
+        working-directory: infrastructure
+        run: terraform plan -input=false -replace=heroku_build.this

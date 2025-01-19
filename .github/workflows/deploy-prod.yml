@@ -1,0 +1,55 @@
+name: "Deploy to Production"
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+" # semantic versioning
+
+jobs:
+  deploy-prod:
+    name: "Deploy to Production"
+    runs-on: ubuntu-latest
+    environment: production
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Prepare deploy version variable
+        run: |-
+          TAG=${{ github.ref_name }}
+          echo "DEPLOY_VERSION=${TAG//./-}" >> $GITHUB_ENV
+
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      # Since Terraform cloud does not support run variables at this time.
+      # Currently the only to way to pass variables is by creating a `*.auto.tfvars` variables file.
+      - name: Setup Terraform variables
+        working-directory: infrastructure
+        id: vars
+        run: |-
+          cat > pipeline.auto.tfvars <<EOF
+          cloudflare_api_token = "${{ secrets.CLOUDFLARE_API_TOKEN }}"
+          openweather_api_key  = "${{ secrets.OPENWEATHER_API_KEY }}"
+          EOF
+          cat pipeline.auto.tfvars
+
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init
+        working-directory: infrastructure
+        run: terraform init
+
+      # Deploy workers and cloudflare infrastructure
+      - name: Deploy workers and cloudflare
+        working-directory: infrastructure
+        run: terraform apply -auto-approve -input=false

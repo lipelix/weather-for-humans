@@ -1,6 +1,6 @@
 resource "cloudflare_zone" "pocasi_pro_lidi_cz" {
   account = {
-    id = local.cloudflare_account_id
+    id = data.cloudflare_account.lipelix_labs.id
   }
   name = "pocasi-pro-lidi.cz"
   type = "full"
@@ -12,7 +12,7 @@ resource "cloudflare_dns_record" "pocasi_pro_lidi_all" {
   content = "139.59.142.55"
   type    = "A"
   proxied = true
-  ttl = 1
+  ttl     = 1
 }
 
 output "Cloudlflare_zone_metadata" {

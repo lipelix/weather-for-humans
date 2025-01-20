@@ -19,14 +19,12 @@ provider "cloudflare" {
   api_token = var.cloudflare_api_token
 }
 
-data "cloudflare_accounts" "default" {
-  name = "lipelix-labs"
+output "Cloudflare_account" {
+  value = data.cloudflare_account.lipelix_labs
 }
 
-output "cloudflare_accounts_default" {
-  value = data.cloudflare_accounts.default
-}
-
-locals {
-  cloudflare_account_id = "6f76767ec8a36e314efe33576a15d9af"
+data "cloudflare_account" "lipelix_labs" {
+  filter = {
+    name = "lipelix-labs"
+  }
 }

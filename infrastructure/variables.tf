@@ -10,7 +10,7 @@ variable "cloudflare_api_token" {
 
 variable "gcp_project_id" {
   type    = string
-  default = "weather-for-humans-448720"
+  default = "weather-for-humans-449320"
 }
 
 variable "GOOGLE_CREDENTIALS" { // setup on terraform cloud as a sensitive variable

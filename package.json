@@ -5,6 +5,7 @@
   "scripts": {
     "start": "NODE_ENV=production node ./app.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "local:generate:cert": "openssl req -x509 -newkey rsa:2048 -nodes -sha256 -subj '/CN=localhost' -keyout key.pem -out cert.pem",
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
     "dev": "NODE_ENV=development node ./app.js"

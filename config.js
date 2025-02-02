@@ -6,7 +6,7 @@ export const CONFIG = (() => {
 
   console.log('env: ', {
     PORT,
-    HOSTNAME: process.env.HOSTNAME
+    HOSTNAME: hostname
   });
 
   return {

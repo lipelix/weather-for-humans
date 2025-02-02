@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'development') {
   const key = fs.readFileSync('./key.pem');
   const cert = fs.readFileSync('./cert.pem');
   const server = https.createServer({ key, cert }, app);
-  server.listen(CONFIG.PORT_HTTPS, () => { console.log(`app listening on https ${CONFIG.HOSTNAME}`); });
+  server.listen(CONFIG.PORT_HTTPS, () => { console.log(`app listening on https ${CONFIG.HTTP_HOST}`); });
 }
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -58,5 +58,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(CONFIG.PORT, () => {
-  console.log(`app listening on http ${CONFIG.HOSTNAME}`);
+  console.log(`app listening on http ${CONFIG.HTTP_HOST}`);
 });

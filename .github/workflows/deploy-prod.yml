@@ -21,10 +21,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      # Create .env_variables.yaml file from GitHub Secrets used in app engine deployment
+      - name: Create .env_variables.yaml for GCP app engine deployment
+        working-directory: . # take root directory as working directory
+        run: |-
+          cat > .env_variables.yaml <<EOF
+          env_variables:
+            OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+          EOF
+          cat .env_variables.yaml
+
       - name: Prepare deploy version variable
         run: |-
           TAG=${{ github.ref_name }}
           echo "DEPLOY_VERSION=${TAG//./-}" >> $GITHUB_ENV
+
+      - name: Deploy to GCP app engine
+        uses: actions-hub/gcloud@master
+        env:
+          PROJECT_ID: weather-for-humans-449320
+          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        with:
+          args: app deploy --version=${{ env.DEPLOY_VERSION }} ./app.yaml
+          cli: gcloud
 
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform

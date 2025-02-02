@@ -40,7 +40,7 @@ jobs:
         uses: actions-hub/gcloud@master
         env:
           PROJECT_ID: weather-for-humans-449320
-          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APP_ENGINE_CREDENTIALS }}
         with:
           args: app deploy --version=${{ env.DEPLOY_VERSION }} ./app.yaml
           cli: gcloud

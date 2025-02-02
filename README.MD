@@ -52,7 +52,7 @@ You can run this project locally (even if it doesn't make much sense :).
 
 ### Installation
 
-1. Get a free API Key at [https://openweathermap.org/api](https://openweathermap.org/api)
+1. Generate a free API Key at [https://home.openweathermap.org/api_keys](https://home.openweathermap.org/api_keys)
 2. Clone the repo
    ```sh
    git clone https://github.com/lipelix/weather-for-humans.git
@@ -61,13 +61,12 @@ You can run this project locally (even if it doesn't make much sense :).
    ```sh
    npm install
    ```
-4. Create `.env` file in root project folder
-5. Enter your API in `.env` file
+4. Rename `.env.example` to `.env` in root project folder and fill `OPENWEATHER_API_KEY` with your API key from step 1.
    ```
    OPENWEATHER_API_KEY=<your api key from openweathermap>
    ```
-6. Generate `key.pem` and `cert.pem` with `openssl` tool (details https://nodejs.org/en/knowledge/HTTP/servers/how-to-create-a-HTTPS-server/)
-7. Run your app by `npm run dev`
+5. Run `npm run local:generate:cert` to generate `key.pem` and `cert.pem` with `openssl` tool (details https://nodejs.org/api/https.html#httpscreateserveroptions-requestlistener)
+6. Run your app by `npm run dev`
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

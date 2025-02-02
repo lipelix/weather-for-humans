@@ -36,13 +36,22 @@ jobs:
           TAG=${{ github.ref_name }}
           echo "DEPLOY_VERSION=${TAG//./-}" >> $GITHUB_ENV
 
-      - name: Deploy to GCP app engine
+      - name: Deploy services to GCP app engine
         uses: actions-hub/gcloud@master
         env:
           PROJECT_ID: weather-for-humans-449320
           APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APP_ENGINE_CREDENTIALS }}
         with:
           args: app deploy --version=${{ env.DEPLOY_VERSION }} ./app.yaml
+          cli: gcloud
+
+      - name: Deploy routes to GCP app engine
+        uses: actions-hub/gcloud@master
+        env:
+          PROJECT_ID: weather-for-humans-449320
+          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APP_ENGINE_CREDENTIALS }}
+        with:
+          args: app deploy ./dispatch.yaml
           cli: gcloud
 
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token

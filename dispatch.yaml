@@ -1,0 +1,4 @@
+dispatch:
+  # Default service serves app on pocasi-pro-lidi.cz domain.
+  - url: "pocasi-pro-lidi.cz/*"
+    service: default

@@ -20,8 +20,8 @@
 
 
 <script>
-  const GET_WEATHER = "{{routeGetWeather}}"
-  const GET_WEATHER_BY_IP = "{{routeGetWeatherByIP}}"
+  const GET_WEATHER = `${window.location.protocol}//${window.location.host}/weather`
+  const GET_WEATHER_BY_IP = `${window.location.protocol}//${window.location.host}/weather/by-ip`
 
   const renderHtml = (data) => {
     const [intro] = data.clothes

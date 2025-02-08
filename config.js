@@ -11,10 +11,6 @@ export const CONFIG = (() => {
 
   return {
     HTTP_HOST: hostname,
-    ROUTES: {
-      getWeather: `https://${hostname}/weather`,
-      getWeatherByIP: `https://${hostname}/weather/by-ip`
-    },
     PORT,
     PORT_HTTPS
   };

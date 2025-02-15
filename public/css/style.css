@@ -1,19 +1,22 @@
-html, 
+html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-  padding: 50px;
-  font: 60px Georgia, "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 5em Georgia, "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: floralwhite;
   display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+.home-wrapper {
+  width: 100%;
 }
 
 .output-wrapper {
@@ -21,6 +24,7 @@ a {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  font-size: 1.4em;
 }
 
 #intro {
@@ -37,9 +41,10 @@ a {
 .weather-description-wrapper {
   display: flex;
   justify-content: center;
-  font-size: 32px;
-  line-height: 64px;
+  line-height: 1em;
   text-align: center;
   border-top: 1px solid;
-  margin-top: 30px;
+  margin-top: 1em;
+  font-size: 0.6em;
+  padding: 1em 0;
 }

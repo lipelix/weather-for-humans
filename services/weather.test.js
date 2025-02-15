@@ -9,7 +9,7 @@ describe('Weather clothes mapper', () => {
     const clothes = temperatureMapper(weatherData);
 
     // Assert
-    expect(clothes).toEqual(['plavky 🩲']);
+    expect(clothes).toEqual(['🩲 plavky']);
   });
 
   test('When temperature over 20 degrees, should have T-SHIRT and SHORTS', () => {
@@ -20,7 +20,7 @@ describe('Weather clothes mapper', () => {
     const clothes = temperatureMapper(weatherData);
 
     // Assert
-    expect(clothes).toEqual(['triko 👕', 'kraťasy 🩳']);
+    expect(clothes).toEqual(['👕 triko', '🩳 kraťasy']);
   });
 
   test('When temperature over 15 degrees, should have LONG-SLEEVE and SHORTS', () => {
@@ -31,7 +31,7 @@ describe('Weather clothes mapper', () => {
     const clothes = temperatureMapper(weatherData);
 
     // Assert
-    expect(clothes).toEqual(['dlouhej rukáv 🥼', 'kraťasy 🩳']);
+    expect(clothes).toEqual(['🥼 dlouhej rukáv', '🩳 kraťasy']);
   });
 
   test('When temperature over 10 degrees, should have LONG-SLEEVE and TROUSERS', () => {
@@ -42,7 +42,7 @@ describe('Weather clothes mapper', () => {
     const clothes = temperatureMapper(weatherData);
 
     // Assert
-    expect(clothes).toEqual(['dlouhej rukáv 🥼', 'kalhoty 👖']);
+    expect(clothes).toEqual(['🥼 dlouhej rukáv', '👖 kalhoty']);
   });
 
   test('When temperature over 0 degrees, should have JACKET and TROUSERS', () => {
@@ -53,7 +53,7 @@ describe('Weather clothes mapper', () => {
     const clothes = temperatureMapper(weatherData);
 
     // Assert
-    expect(clothes).toEqual(['bundu 🧥', 'kalhoty 👖']);
+    expect(clothes).toEqual(['🧥 bunda', '👖 kalhoty']);
   });
 
   test('When temperature under 0 degrees, should have JACKET and GLOVES and SCARF', () => {
@@ -64,7 +64,7 @@ describe('Weather clothes mapper', () => {
     const clothes = temperatureMapper(weatherData);
 
     // Assert
-    expect(clothes).toEqual(['bundu 🧥', 'rukavice 🧤', 'šála 🧣']);
+    expect(clothes).toEqual(['🧥 bunda', '🧤 rukavice', '🧣 šála']);
   });
 
   test('When temperature unknown, should return empty', () => {
@@ -88,7 +88,7 @@ describe('Conditions mapper', () => {
     const conditions = conditionMapper(weatherData);
 
     // Assert
-    expect(conditions).toEqual(['brejle 🕶']);
+    expect(conditions).toEqual(['🕶 brejle']);
   });
 
   test('When condition is few clouds, should have GLASSES', () => {
@@ -99,7 +99,7 @@ describe('Conditions mapper', () => {
     const conditions = conditionMapper(weatherData);
 
     // Assert
-    expect(conditions).toEqual(['brejle 🕶']);
+    expect(conditions).toEqual(['🕶 brejle']);
   });
 
   test('When condition is Rain, should have UMBRELLA', () => {
@@ -110,7 +110,7 @@ describe('Conditions mapper', () => {
     const conditions = conditionMapper(weatherData);
 
     // Assert
-    expect(conditions).toEqual(['deštník ☂️']);
+    expect(conditions).toEqual(['☂️ deštník']);
   });
 
   test('When condition is Drizzle, should have UMBRELLA', () => {
@@ -121,7 +121,7 @@ describe('Conditions mapper', () => {
     const conditions = conditionMapper(weatherData);
 
     // Assert
-    expect(conditions).toEqual(['deštník ☂️']);
+    expect(conditions).toEqual(['☂️ deštník']);
   });
 
   test('When condition is Thunderstorm, should have UMBRELLA', () => {
@@ -132,7 +132,7 @@ describe('Conditions mapper', () => {
     const conditions = conditionMapper(weatherData);
 
     // Assert
-    expect(conditions).toEqual(['deštník ☂️']);
+    expect(conditions).toEqual(['☂️ deštník']);
   });
 
   test('When over sunset, no glasses', () => {

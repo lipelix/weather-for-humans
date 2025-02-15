@@ -4,21 +4,21 @@ const INTRO = {
 
 const CLOTHES = {
   CZ: {
-    'T-SHIRT': 'triko 👕',
-    JACKET: 'bundu 🧥',
-    'LONG-SLEEVE': 'dlouhej rukáv 🥼',
-    SHORTS: 'kraťasy 🩳',
-    TROUSERS: 'kalhoty 👖',
-    'BATHING-SUIT': 'plavky 🩲',
-    GLOVES: 'rukavice 🧤',
-    SCARF: 'šála 🧣'
+    'T-SHIRT': '👕 triko',
+    JACKET: '🧥 bunda',
+    'LONG-SLEEVE': '🥼 dlouhej rukáv',
+    SHORTS: '🩳 kraťasy',
+    TROUSERS: '👖 kalhoty',
+    'BATHING-SUIT': '🩲 plavky',
+    GLOVES: '🧤 rukavice',
+    SCARF: '🧣 šála'
   }
 };
 
 const ACCESSORIES = {
   CZ: {
-    GLASSES: 'brejle 🕶',
-    UMBRELLA: 'deštník ☂️'
+    GLASSES: '🕶 brejle',
+    UMBRELLA: '☂️ deštník'
   }
 };
 
